@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Postcard from './components/postcard';
 
 function App() {
 
@@ -29,9 +30,30 @@ function App() {
     },
   ];
 
+  const [user,setUser ] = useState(initialPosts);
+
+  function handleLike(id){
+    console.log(id)
+    const newUpdatedUsersList = user.map((ele)=>{
+      if(id == ele.id){
+        return {
+          ...ele,
+          isLiked:!ele.isLiked
+        };
+      }else{
+          return ele;
+      }
+    })
+    setUser(newUpdatedUsersList)
+  }
+
   return (
     <>
-      
+      {
+        user.map((ele)=>(
+          <Postcard user={ele} handleLike={handleLike}/> 
+        ))
+      }
     </>
   )
 }
